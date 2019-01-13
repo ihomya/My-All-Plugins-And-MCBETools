@@ -1,0 +1,49 @@
+name: EconomyManager
+main: com.Itsu.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   money:
+      description: "自分の所持金を見る"
+      usage: "/money"
+      permission: money
+      permission-message: You don't have <permisson>
+      default: true
+   seemoney:
+      description: "他人の所持金を見る"
+      usage: "/seemoney [プレイヤー]"
+      permission: seemoney
+      permission-message: You don't have <permisson>
+      default: true
+   givemoney:
+      description: "お金を他のプレイヤーにあげる"
+      usage: "/givemoney [宛先プレイヤー] [金額]"
+      permission: givemoney
+      permission-message: You don't have <permisson>
+      default: true
+   setmoney:
+      description: "プレイヤーの所持金を設定する"
+      usage: "/setmoney [宛先プレイヤー] [金額]"
+      permission: setmoney
+      permission-message: You don't have <permisson>
+      default: op
+   addmoney:
+      description: "プレイヤーの所持金に追加する"
+      usage: "/addmoney [宛先プレイヤー] [金額]"
+      permission: addmoney
+      permission-message: You don't have <permisson>
+      default: op
+
+permissions:
+    money:
+        default: true
+    seemoney:
+        default: true
+    givemoney:
+        default: true
+    setmoney:
+        default: op
+    addmoney:
+        default: op
