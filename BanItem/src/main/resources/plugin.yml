@@ -1,0 +1,13 @@
+﻿name: BanItem
+main: ban.item.banitem.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   bi:
+      description: "BanItemの指定"
+      usage: "/bi <Id>,<Meta>"
+      permission: banitem.bi
+      permission-message: You don't have permisson
+      default: op
