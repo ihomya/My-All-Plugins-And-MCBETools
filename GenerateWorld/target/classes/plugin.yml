@@ -1,0 +1,24 @@
+﻿name: GenerateWorld
+main: generate.world.generateworld.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   generate:
+      description: "新規ワールド作成"
+      usage: "/generate <name>"
+      permission: generateworld.generate
+      permission-message: You don't have permisson
+      default: op
+
+   tpw:
+      description: "指定したワールドへの移動"
+      usage: "/tpw <name>"
+      permission: generateworld.tpw
+      permission-message: You don't have permisson
+      default: op
+
+permissions:
+  tpw:
+      default: true
