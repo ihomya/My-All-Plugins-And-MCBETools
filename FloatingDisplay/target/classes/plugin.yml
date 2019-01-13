@@ -1,0 +1,13 @@
+﻿name: FloatingDisplay
+main: floating.display.core.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   mkdisplay:
+      description: "ディスプレイ作成"
+      usage: "/mkdisplay"
+      permission: mkdisplay
+      permission-message: You don't have permisson
+      default: op
