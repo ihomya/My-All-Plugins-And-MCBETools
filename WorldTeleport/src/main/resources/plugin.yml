@@ -1,0 +1,13 @@
+name: WorldTeleport
+main: com.Itsu.WorldTeleport
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   generateworld:
+      description: "ワールド作成"
+      usage: "/generateworld [名前]"
+      permission: generateworld
+      permission-message: You don't have <permisson>
+      default: true
