@@ -1,0 +1,9 @@
+﻿name: MemorySecurity
+main: com.Jupiter.MemoryChecker
+version: 1.0.0
+api: [1.0.0]
+author: Itsu
+commands:
+ checkmemory:
+  description: "メモリ使用量を表示"
+  usage: " /checkmemory"
