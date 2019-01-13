@@ -1,0 +1,13 @@
+﻿name: PrisonBreak
+main: prison.Main
+version: 1.2.2
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   pb:
+      description: "PrisonBreak"
+      usage: "/pb"
+      permission: pb
+      permission-message: You don't have <permission>
+      default: op
