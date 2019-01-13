@@ -1,0 +1,17 @@
+﻿name: MineNews
+main: mine.Main
+version: 2.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   news:
+      description: "Yahooニュースを表示 /news helpで確認してください。"
+      usage: "/news"
+      permission: news
+      permission-message: You don't have <permission>
+      default: true
+
+permissions:
+   news:
+      default: true
