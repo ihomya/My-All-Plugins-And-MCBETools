@@ -1,0 +1,465 @@
+﻿<?php
+
+namespace WEdit;
+
+/*
+	繝ｯ繝ｼ繝ｫ繝峨お繝・ぅ繧ｿ繝ｼ
+*/
+
+use pocketmine\plugin\PluginBase;
+use pocketmine\event\Listener;
+use pocketmine\command\CommandExecutor;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+
+use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\player\PlayerInteractEvent;
+
+use pocketmine\Player;
+use pocketmine\Server;
+
+use pocketmine\level\level;
+use pocketmine\block\Block;
+use pocketmine\math\Vector3;
+
+use pocketmine\utils\TextFormat;
+use pocketmine\utils\Config;
+
+class WEdit_main extends PluginBase implements Listener, CommandExecutor{
+	private $sessions, $id, $eid, $enable, $dataFolder;
+
+	public function onLoad(){
+		$this->getLogger()->info("WEdit縺瑚ｪｭ縺ｿ霎ｼ縺ｾ繧後∪縺励◆縲・.TextFormat::GREEN."(v2.0.0 - by Gonbe34)");
+	}
+
+	public function onEnable(){
+	        $dataFolder = Server::getInstance()->getPluginManager()->getPlugin("WEdit")->getDataFolder();
+	        if(!file_exists($dataFolder)){
+			@mkdir($dataFolder, 0744, true);
+		}
+		$settings = new Config($dataFolder."settings.yml", Config::YAML,
+			array(
+				"block_id" => 155,
+				"elase_id" => 267,
+			)
+		);
+		$this->id = $settings->get("block_id");
+		$this->eid = $settings->get("elase_id");
+		$this->sessions = [];
+		$this->cmditem = [
+			"//e",
+			"//e 1",
+			"//e 2"
+		];
+		$this->dataFolder = $dataFolder;
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+	}
+
+	#event: 繝悶Ο繝・け遐ｴ螢・	public function BlockBreak(BlockBreakEvent $event){//1
+		$id = $event->getItem()->getID();
+		if($id == $this->id){
+			$player = $event->getPlayer();
+			$user = $player->getName();
+			if(empty($this->sessions[$user][1])){
+				$x = $event->getBlock()->x;
+				$y = $event->getBlock()->y;
+				$z = $event->getBlock()->z;
+				$this->sessions[$user][1] = array($x, $y, $z);
+				$ms = "[WEdit] POS1縺瑚ｨｭ螳壹＆繧後∪縺励◆縲・ $x, $y, $z";
+				if(isset($this->sessions[$user][2])){//迚・婿縺後そ繝・ヨ縺輔ｌ縺ｦ縺・◆繧・					$num = $this->countBlocks($player);
+					if($num != false) $ms .= " (險・.$num."繝悶Ο繝・け)";
+				}
+				$player->sendMessage($ms);
+				$event->setCancelled(true);
+			}
+		}
+		return true;
+	}
+
+	#event: 繝悶Ο繝・け險ｭ鄂ｮ
+	public function BlockPlace(BlockPlaceEvent $event){//2
+		$id = $event->getItem()->getID();
+		if($id == $this->id){
+			$player = $event->getPlayer();
+			$user = $player->getName();
+			if(empty($this->sessions[$user][2])){
+				$x = $event->getBlock()->x;
+				$y = $event->getBlock()->y;
+				$z = $event->getBlock()->z;
+				$this->sessions[$user][2] = array($x, $y, $z);
+				$ms = "[WEdit] POS2縺瑚ｨｭ螳壹＆繧後∪縺励◆縲・ $x, $y, $z";
+				if(isset($this->sessions[$user][1])){//迚・婿縺後そ繝・ヨ縺輔ｌ縺ｦ縺・◆繧・					$num = $this->countBlocks($player);
+					if($num != false) $ms .= " (險・.$num."繝悶Ο繝・け)";
+				}
+				$player->sendMessage($ms);
+				$event->setCancelled(true);
+			}
+		}
+		return true;
+	}
+
+	#event: 繧｢繧､繝・Β縺ｧ繝悶Ο繝・け繧ｿ繝・メ
+	public function BlockTouch(PlayerInteractEvent $event){//1
+		$id = $event->getItem()->getID();
+		if($id == $this->eid){
+			$player = $event->getPlayer();
+			$user = $player->getName();
+			$cmd = !empty($this->sessions[$user][4]) ? $this->sessions[$user][4] : 0;
+			switch($event->getAction()){
+				case 1:
+				//繝｡繝九Η繝ｼ蛻・ｊ譖ｿ縺・					$cmd += 1;
+					if(empty($this->cmditem[$cmd])){
+						$cmd = 0;
+					}
+					$ms = "[WEdit] 繧ｳ繝槭Φ繝峨・.$this->cmditem[$cmd]."縲阪ｒ驕ｸ謚・;
+					$this->sessions[$user][4] = $cmd;
+					$player->sendMessage($ms);
+					$event->setCancelled(true);
+				break;
+				case 3:
+				//繝｡繝九Η繝ｼ豎ｺ螳・					switch($cmd){
+						case 0:
+							$this->erase($player);
+						break;
+						case 1:
+						case 2:
+							$this->erase($player,$cmd);
+						break;
+					}
+					$event->setCancelled(true);
+				break;
+			}
+
+		}
+		return true;
+	}
+
+	#繧ｳ繝槭Φ繝牙女縺大叙繧・	public function onCommand(CommandSender $sender, Command $command, $label, array $params){
+		$user = $sender->getName();
+		//print($user);
+		switch($command->getName()){
+			case "/":
+			case "/help":
+				$ms ="=== WEdit縺ｮ菴ｿ縺・婿 ===\n".
+				     "* ID:".$this->id."繧呈戟縺｡縲√ヶ繝ｭ繝・け繧堤ｴ螢翫☆繧九％縺ｨ縺ｧPOS1繧定ｨｭ螳喀n".
+				     "* ID:".$this->id."繧定ｨｭ鄂ｮ縺吶ｋ縺薙→縺ｧPOS2繧定ｨｭ螳喀n".
+				     "* POS1縺ｨPOS2繧定ｨｭ螳壹＠邨ゅ∴縺溘ｉ縲∽ｻ･荳九・繧ｳ繝槭Φ繝峨ｒ螳溯｡後＠縺ｾ縺励ｇ縺・n".
+				     "* //set <id> :遽・峇繧偵ヶ繝ｭ繝・け縺ｧ蝓九ａ縺ｾ縺兔n".
+				     "* //cut :遽・峇縺ｮ繝悶Ο繝・け繧呈ｶ医＠縺ｾ縺兔n".
+				     "* //replace <id1> <id2> :id1繧段d2縺ｮ繝悶Ο繝・け縺ｫ鄂ｮ縺肴鋤縺医∪縺兔n".
+				     "* //air <id> :遽・峇蜀・・id縺ｮ繝悶Ο繝・け縺ｮ縺ｿ蜑企勁縺励∪縺兔n".
+				     "* //e :險ｭ螳壹＆繧後◆POS1縺ｨPOS2繧貞炎髯､縺励∪縺兔n".
+				     "";
+				$sender->sendMessage($ms);
+			break;
+			case "/e":
+				if(count($params) == 0){
+					$this->erase($sender);
+				}else{
+					$this->erase($sender,$params[0]);
+				}
+			break;
+			case "/set":
+				if(count($params) != 1)return false;
+				$this->set($sender,$params[0]);
+			break;
+			case "/replace":
+				if(count($params) != 2)return false;
+				$this->replace($sender,$params[0],$params[1]);
+			break;
+			case "/air":
+				if(count($params) != 1)return false;
+				$this->replace($sender,$params[0],0);
+			break;
+			case "/cut":
+				$this->set($sender);
+			break;
+			case "/undo":
+				$this->undo($sender);
+			case "/pos":
+				if(count($params) != 4)return false;
+				$num = $params[0];
+				if(empty($this->sessions[$user][$num])){
+					$x = $params[1];
+					$y = $params[2];
+					$z = $params[3];
+					$this->sessions[$user][$num] = array($x, $y, $z);
+					$ms = "[WEdit] POS".$num."縺瑚ｨｭ螳壹＆繧後∪縺励◆縲・ $x, $y, $z";
+					$p = $num == 1 ? 2 : 1;
+					if(isset($this->sessions[$user][$p])){//迚・婿縺後そ繝・ヨ縺輔ｌ縺ｦ縺・◆繧・						$num = $this->countBlocks($sender);
+						if($num != false) $ms .= " (險・.$num."繝悶Ο繝・け)";
+					}
+					$sender->sendMessage($ms);
+				}else{
+					$sender->sendMessage("[WEdit] 荳肴ｭ｣縺ｪ繝代Λ繝｡繝ｼ繧ｿ縺ｮ縺溘ａ縲∝ｺｧ讓呎欠螳壹〒縺阪∪縺帙ｓ縲・);
+				}
+			break;
+			case "/copy":
+				$this->copy($sender);
+			break;
+			case "/paste":
+				$this->paste($sender);
+			break;
+			case "/output":
+				$this->outputObject($sender);
+			break;
+			case "/input":
+				if(count($params) == 1){
+					$this->inputObject($sender, $params[0]);
+				}else{
+					return false;
+				}
+			break;
+		}
+		return true;
+	}
+
+	#copy
+	public function copy($player){
+		$name = $player->getName();
+		if(isset($this->sessions[$name][1]) and isset($this->sessions[$name][2])){
+			$pos = $this->sessions[$name];
+			$sx = min($pos[1][0], $pos[2][0]);
+			$sy = min($pos[1][1], $pos[2][1]);
+			$sz = min($pos[1][2], $pos[2][2]);
+			$ex = max($pos[1][0], $pos[2][0]);
+			$ey = max($pos[1][1], $pos[2][1]);
+			$ez = max($pos[1][2], $pos[2][2]);
+			$num = ($ex - $sx + 1) * ($ey - $sy +1) * ($ez - $sz + 1);
+
+			Server::getInstance()->broadcastMessage("[WEdit] ".$name."縺後さ繝斐・繧帝幕蟋九＠縺ｾ縺吮ｦ(copy : ".$num."繝悶Ο繝・け)");
+
+			$level = $player->getLevel();
+
+			$data = array();
+			for($x = $sx; $x <= $ex; ++$x){
+				for($y = $sy; $y <= $ey; ++$y){
+					for($z = $sz; $z <= $ez; ++$z){
+						$data[] = array($x, $y, $z, $level->getBlockIdAt($x, $y ,$z), $level->getBlockDataAt($x, $y ,$z));
+					}
+				}
+			}
+
+			$this->sessions[$name][4] = $data;
+			Server::getInstance()->broadcastMessage("[WEdit] 螟画峩縺檎ｵゆｺ・＠縺ｾ縺励◆縲・);
+		}else{
+			$player->sendMessage("[WEdit] ERROR: POS1縺ｨPOS2縺梧欠螳壹＆繧後※縺・∪縺帙ｓ縲・n[WEdit] //help繧呈遠縺｡縲∽ｽｿ縺・婿繧定ｪｭ繧薙〒縺上□縺輔＞縲・);
+		}
+	}
+
+	#json蠖｢蠑上〒縲…opy縺励◆繧ゅ・繧貞・蜉・	public function outputObject($player, $filename=false){
+		$name = $player->getName();
+		if(isset($this->sessions[$name][4])){
+			$player->sendMessage("[WEdit] 繧ｪ繝悶ず繧ｧ繧ｯ繝医・蜃ｺ蜉帑ｸｭ窶ｦ");
+			$content = json_encode($data);
+			if(!$filename){
+				$filename = "wedit_output_".date("Y-m-d H:i:s");
+			}
+			file_put_contents($this->dataFolder.$filename.".json", $content);
+			//譛ｪ螳梧・
+			$player->sendMessage("[WEdit] 繧ｪ繝悶ず繧ｧ繧ｯ繝医′縲・.$filename.".json縲阪→縺励※蜃ｺ蜉帙＆繧後∪縺励◆縲・);
+		}else{
+			$player->sendMessage("[WEdit] copy繧剃ｽｿ縺｣縺ｦ縺九ｉ螳溯｡後＠縺ｦ縺上□縺輔＞");
+		}
+	}
+
+	#json蠖｢蠑上°繧牙・蜉・	public function inputObject($player, $filename){
+		$fname = $this->dataFolder.$filename.".json";
+		if(file_exists($fname)){
+			$player->sendMessage("[WEdit] 繧ｪ繝悶ず繧ｧ繧ｯ繝医・蜈･蜉帑ｸｭ窶ｦ");
+			$name = $player->getName();
+			$content = file_get_contents($fname);
+			$ar = json_decode($content, true);
+			if(isset($ar[1])){
+				$this->sessions[$name][4] = $ar;
+				$player->sendMessage("[WEdit] 繧ｪ繝悶ず繧ｧ繧ｯ繝医′蜈･蜉帙＆繧後∪縺励◆縲・);
+			}else{
+				$player->sendMessage("[WEdit] 繝輔ぃ繧､繝ｫ縺悟｣翫ｌ縺ｦ縺・∪縺・);
+			}
+		}else{
+			$player->sendMessage("[WEdit] 蟄伜惠縺励↑縺・ヵ繧｡繧､繝ｫ");
+		}
+	}
+
+	#set縺ｮ繧ｳ繝槭Φ繝牙・逅・	#param0 : player obj
+	#param1 : item id
+	public function set($player, $id = 0){
+		$name = $player->getName();
+		if(isset($this->sessions[$name][1]) and isset($this->sessions[$name][2])){
+			$pos = $this->sessions[$name];
+			$sx = min($pos[1][0], $pos[2][0]);
+			$sy = min($pos[1][1], $pos[2][1]);
+			$sz = min($pos[1][2], $pos[2][2]);
+			$ex = max($pos[1][0], $pos[2][0]);
+			$ey = max($pos[1][1], $pos[2][1]);
+			$ez = max($pos[1][2], $pos[2][2]);
+			$num = ($ex - $sx + 1) * ($ey - $sy +1) * ($ez - $sz + 1);
+
+			if($id == 0){
+				Server::getInstance()->broadcastMessage("[WEdit] ".$name."縺悟､画峩繧帝幕蟋九＠縺ｾ縺吮ｦ(cut : ".$num."繝悶Ο繝・け)");
+			}else{
+				Server::getInstance()->broadcastMessage("[WEdit] ".$name."縺悟､画峩繧帝幕蟋九＠縺ｾ縺吮ｦ(set $id : ".$num."繝悶Ο繝・け)");
+			}
+
+			$level = $player->getLevel();
+			$did = explode(":", $id);
+			if(count($did) != 2){
+				$block = Block::get($did[0]);
+			}else{
+				$block = Block::get($did[0], $did[1]);
+			}
+
+			$data = array();
+			for($x = $sx; $x <= $ex; ++$x){
+				for($y = $sy; $y <= $ey; ++$y){
+					for($z = $sz; $z <= $ez; ++$z){
+						$data[] = array($x, $y, $z, $level->getBlockIdAt($x, $y ,$z), $level->getBlockDataAt($x, $y ,$z));
+						$posi = new Vector3($x, $y, $z);
+						$level->setBlock($posi, $block);
+					}
+				}
+			}
+
+			$this->sessions[$name][3] = $data;
+			Server::getInstance()->broadcastMessage("[WEdit] 螟画峩縺檎ｵゆｺ・＠縺ｾ縺励◆縲・);
+		}else{
+			$player->sendMessage("[WEdit] ERROR: POS1縺ｨPOS2縺梧欠螳壹＆繧後※縺・∪縺帙ｓ縲・n[WEdit] //help繧呈遠縺｡縲∽ｽｿ縺・婿繧定ｪｭ繧薙〒縺上□縺輔＞縲・);
+		}
+	}
+
+	#replace縺ｮ繧ｳ繝槭Φ繝牙・逅・	#param0 : player obj
+	#param1 : item id 鄂ｮ縺肴鋤縺医ｋ縺ｻ縺・	#param2 : item id 繧ｻ繝・ヨ縺輔ｌ縺ｦ繧九⊇縺・	public function replace($player, $id1, $id2){
+		$name = $player->getName();
+		if(isset($this->sessions[$name][1]) and isset($this->sessions[$name][2])){
+			$pos = $this->sessions[$name];
+			$sx = min($pos[1][0], $pos[2][0]);
+			$sy = min($pos[1][1], $pos[2][1]);
+			$sz = min($pos[1][2], $pos[2][2]);
+			$ex = max($pos[1][0], $pos[2][0]);
+			$ey = max($pos[1][1], $pos[2][1]);
+			$ez = max($pos[1][2], $pos[2][2]);
+			$num = ($ex - $sx + 1) * ($ey - $sy +1) * ($ez - $sz + 1);
+
+			Server::getInstance()->broadcastMessage("[WEdit] ".$name."縺悟､画峩繧帝幕蟋九＠縺ｾ縺吮ｦ($id1 => $id2) : ".$num."繝悶Ο繝・け)");
+
+			$count = 0;
+			$level = $player->getLevel();
+			$did = explode(":", $id2);
+			if(count($did) != 2){
+				$block = Block::get($did[0]);
+			}else{
+				$block = Block::get($did[0], $did[1]);
+			}
+			$data = array();
+			for($x = $sx; $x <= $ex; ++$x){
+				for($y = $sy; $y <= $ey; ++$y){
+					for($z = $sz; $z <= $ez; ++$z){
+						if($level->getBlockIdAt($x, $y ,$z) == $id1){
+							$data[] = array($x, $y, $z, $id1, 0);
+							$posi = new Vector3($x, $y, $z);
+							$level->setBlock($posi, $block);
+							$count ++;
+						}
+					}
+				}
+			}
+
+			$this->sessions[$name][3] = $data;
+			Server::getInstance()->broadcastMessage("[WEdit] 螟画峩縺檎ｵゆｺ・＠縺ｾ縺励◆縲・);
+		}else{
+			$player->sendMessage("[WEdit] ERROR: POS1縺ｨPOS2縺梧欠螳壹＆繧後※縺・∪縺帙ｓ縲・n[WEdit] //help繧呈遠縺｡縲∽ｽｿ縺・婿繧定ｪｭ繧薙〒縺上□縺輔＞縲・);
+		}
+	}
+
+	#undo縺ｮ繧ｳ繝槭Φ繝牙・逅・	#param0 : player obj
+	public function undo($player){
+		$name = $player->getName();
+		if(isset($this->sessions[$name][3])){
+			$data = $this->sessions[$name][3];
+			$num = count($data);
+			Server::getInstance()->broadcastMessage("[WEdit] ".$name."縺悟､画峩繧帝幕蟋九＠縺ｾ縺吮ｦ(undo : ".$num."繝悶Ο繝・け)");
+
+			$level = $player->getLevel();
+			foreach($data as $b){
+				$block = Block::get($b[3], $b[4]);
+				$posi = new Vector3($b[0], $b[1], $b[2]);
+				$level->setBlock($posi, $block);
+			}
+			unset($this->sessions[$name][3]);
+			Server::getInstance()->broadcastMessage("[WEdit] 螟画峩縺檎ｵゆｺ・＠縺ｾ縺励◆縲・);
+		}else{
+			$player->sendMessage("[WEdit] ERROR: 繧・ｊ逶ｴ縺怜・譚･縺ｾ縺帙ｓ縲・);
+		}
+	}
+
+
+
+	#繝悶Ο繝・け縺ｮ謨ｰ繧呈焚縺医ｋ
+	#param0 : player obj
+	public function countBlocks($player){
+		if($player == null){
+			$name = CONSOLE;
+		}else{
+			$name = $player->getName();
+		}
+		if(isset($this->sessions[$name][1]) and isset($this->sessions[$name][2])){
+			$pos = $this->sessions[$name];
+			$sx = min($pos[1][0], $pos[2][0]);
+			$sy = min($pos[1][1], $pos[2][1]);
+			$sz = min($pos[1][2], $pos[2][2]);
+			$ex = max($pos[1][0], $pos[2][0]);
+			$ey = max($pos[1][1], $pos[2][1]);
+			$ez = max($pos[1][2], $pos[2][2]);
+			$num = ($ex - $sx + 1) * ($ey - $sy +1) * ($ez - $sz + 1);
+			if($num < 0) $num * -1;
+			return $num;
+		}else{
+			return false;
+		}
+	}
+
+	#蠎ｧ讓吶ョ繝ｼ繧ｿ蜑企勁
+	#param0 : player obj
+	#param1 : type
+	public function erase($player, $t = 0){
+		$name = $player->getName();
+		if(isset($this->sessions[$name])){
+			if($t == 0){
+				unset($this->sessions[$name]);
+				$ms = "[WEdit] 蠎ｧ讓吶ョ繝ｼ繧ｿ縺ｯ蜑企勁縺輔ｌ縺ｾ縺励◆縲・;
+			}else{
+				if(isset($this->sessions[$name][$t])){
+					unset($this->sessions[$name][$t]);
+					$ms = "[WEdit] POS".$t."縺ｯ蜑企勁縺輔ｌ縺ｾ縺励◆縲・;
+				}else{
+					$ms = "[WEdit] POS".$t."縺ｯ險ｭ螳壹＆繧後※縺・∪縺帙ｓ縲・;
+				}
+			}
+		}else{
+			$ms = "[WEdit] POS1繧１OS2繧りｨｭ螳壹＆繧後※縺・∪縺帙ｓ縲・;
+		}
+		$player->sendMessage($ms);
+		return true;
+	}
+
+
+
+	/* WEditAPI */
+
+	#繝励Ξ繧､繝､繝ｼ縺ｮ繧ｻ繝・す繝ｧ繝ｳ繧貞叙蠕・	public function getSession($user){
+		if(isset($this->sessions[$user])){
+			return [$this->sessions[$user][1], $this->sessions[$user][2]];
+		}else{
+			return false;
+		}
+	}
+
+	#繝励Ξ繧､繝､繝ｼ縺檎峩蜑阪↓鄂ｮ縺肴鋤縺医◆繝悶Ο繝・け繧貞叙蠕・	public function getReplacedBlock($user){
+		if(!empty($this->sessions[$user][3])){
+			return $this->sessions[$user][3];
+		}else{
+			return false;
+		}
+	}
+}
