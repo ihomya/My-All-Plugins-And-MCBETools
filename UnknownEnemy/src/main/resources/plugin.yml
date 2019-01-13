@@ -1,0 +1,18 @@
+name: UnknownEnemy
+main: itsu.mcbe.unknownenemy.core.MainAccessPoint
+version: 1.0.0
+api: ["1.0.0"]
+author: itsu020402
+description: "UnknownEnemy - UnknownEnemy システムプラグイン"
+
+commands:
+  ue:
+    description: "UnknownEnemyのメニューを開きます。"
+    usage: "/ue"
+    permission: ue
+    permission-message: You don't have <permisson>
+    default: true
+
+permissions:
+  ue:
+    default: true

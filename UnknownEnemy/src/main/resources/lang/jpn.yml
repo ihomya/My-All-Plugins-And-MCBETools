@@ -1,0 +1,27 @@
+Entry-Game: ゲームにエントリー
+Quit-Game: ホームに戻る
+Status: ステータス
+Option: 設定
+
+Menu-Text: 動作を選択してください。
+Menu-Quit-Game: ゲームを退出してよろしいですか？
+
+Message-Successed-Quit-Game: ゲームを退出しました。
+Message-Successed-Entry: ゲームにエントリーしました。
+Message-Chat-Attension: "注意: §eゲーム中はチャットを送信できません。"
+Message-Cancelled-Entry: エントリーをキャンセルしました。
+Message-Standby: 5秒後にゲーム開始！
+Message-Elytra-Description: 落下中にジャンプボタンを押すと飛行できます。
+Message-Time: "[第{%0}ピリオド] 残り時間:§f {%1}"
+Message-Time-Attension: 安全区域縮小まで残り{%0}秒
+Message-Time-Shrink-Safety: 安全区域の縮小が開始しました。
+Message-Notice-Elytra: エリトラは20秒後に無くなります。
+
+
+Button-Cancel-Entry-Game: エントリーをキャンセル
+Button-Entry-Game: ゲームにエントリー
+Button-Quit-Game: ゲームから退出
+Button-Quit-Cancel: キャンセル
+Button-TakeOff: 降りる
+
+Error-CommandConsole: ゲーム内で実行してください。

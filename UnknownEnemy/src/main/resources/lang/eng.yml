@@ -1,0 +1,27 @@
+Entry-Game: Entry the game
+Quit-Game: Back to home
+Status: Status
+Option: Options
+
+Menu-Text: Choose the action.
+Menu-Quit-Game: Are you sure to quit from the game?
+
+Message-Successed-Quit-Game: Successed to quit from the game.
+Message-Successed-Entry: Successed to entry to the game.
+Message-Chat-Attension: "Attension: §eYou cannot send chats while playing game."
+Message-Cancelled-Entry: Cancelled to entry.
+Message-Standby: "The game will start in five seconds!!"
+Message-Elytra-Description: You can fly by tapping jump button.
+Message-Time: "[{%0} period] Time:§f {%1}"
+Message-Time-Attension: In {%0} seconds will shrink the safety area.
+Message-Time-Shrink-Safety: Started shrinking the safety area.
+Message-Game-Start: "Game Start!!"
+Message-Notice-Elytra: Elytra will be deleted in 20 seconds.
+
+Button-Cancel-Entry-Game: Cancel entry
+Button-Entry-Game: Entry to the game
+Button-Quit-Game: Quit from the game
+Button-Quit-Cancel: Cancel
+Button-TakeOff: TakeOff
+
+Error-ConsoleCommand: You must run this command in the game.
