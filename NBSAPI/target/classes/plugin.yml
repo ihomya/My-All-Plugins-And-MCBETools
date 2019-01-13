@@ -1,0 +1,6 @@
+main: itsu.mcbe.nbsapi.core.Test
+name: NBSAPI
+author: Itsu
+version: 1.0.0
+api: 1.0.0
+description: NBSAPI
