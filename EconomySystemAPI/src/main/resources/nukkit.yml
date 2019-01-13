@@ -1,0 +1,62 @@
+name: EconomySystemAPI
+main: itsu.mcbe.economysystem.core.MainAccessPoint
+version: 1.0.0
+api: ["1.0.0"]
+author: itsu020402
+load: POSTWORLD
+description: "EconomySystemAPI - Nukkitサーバー用経済システムAPI"
+
+commands: 
+  mymoney: 
+    description: "所持金を確認"
+    usage: "/mymoney"
+    permission: mymoney
+    permission-message: You don't have <permisson>
+    default: true
+    
+  seemoney:
+    description: "指定したプレイヤーの所持金を確認"
+    usage: "/seemoney <name>"
+    permission: seemoney
+    permission-message: You don't have <permisson>
+    default: true
+    
+  givemoney:
+    description: "お金を支払う"
+    usage: "/givemoney <name> <value>"
+    permission: givemoney
+    permission-message: You don't have <permisson>
+    default: true
+    
+  ehelp:
+    description: "EconomySystemAPI ヘルプ"
+    usage: "/ehelp"
+    permission: ehelp
+    permission-message: You don't have <permisson>
+    default: true
+    
+  setmoney:
+    description: "指定したプレイヤーの所持金を設定"
+    usage: "/seemoney <name> <value>"
+    
+  increasemoney:
+    description: "指定したプレイヤーの所持金を増やす"
+    usage: "/increasemoney <name> <value>"
+    
+  decreasemoney:
+    description: "指定したプレイヤーの所持金を減らす"
+    usage: "/decreasemoney <name> <value>"
+    
+permissions:
+  mymoney:
+        default: true
+        
+  seemoney:
+        default: true
+        
+  ehelp:
+        default: true
+        
+  givemoney:
+        default: true
+    

@@ -1,0 +1,5 @@
+#通貨単位
+Unit: YEN
+
+#デフォルトの所持金
+Default-Money: 1000
