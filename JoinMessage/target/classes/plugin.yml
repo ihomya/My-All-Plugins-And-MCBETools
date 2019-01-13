@@ -1,0 +1,5 @@
+name: JoinMessage
+main: join.message.joinmessage.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
