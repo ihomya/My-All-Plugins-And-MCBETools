@@ -1,0 +1,9 @@
+name: MCBEMovie
+main: itsu.mcbe.mcbemovie.core.MCBEMovie
+version: 3.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands: 
+  movie: 
+    description: "Play .mp4 video on your map. giveme runs after add a map into your inventory. play runs after play the video. /movie [giveme | play]"
