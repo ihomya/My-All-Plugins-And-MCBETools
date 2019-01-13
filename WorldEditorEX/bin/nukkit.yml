@@ -1,0 +1,116 @@
+name: WorldEditorEX
+main: itsu.mcpe.WorldEditorEX.WorldEditorEX
+version: WorldEditorEX BuilderPermission Edition
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+
+  builderset:
+    description: "Builder権限のみ指定した座標間にブロックを設置します。"
+    usage: "/builderset [id:meta]"
+    permission: "worldeditorex.builderset"
+    permission-message: You don't have permission
+    default: op
+
+  set:
+    description: "指定した座標間にブロックを設置します。"
+    usage: "/set [id:meta]"
+    permission: "worldeditorex.set"
+    permission-message: You don't have permission
+    default: op
+
+  cut:
+    description: "指定した座標間のブロックを削除します。"
+    usage: "/cut"
+    permission: "worldeditorex.cut"
+    permission-message: You don't have permission
+    default: op
+
+  replace:
+    description: "指定した座標間のブロックを指定したブロックに置き換えます。"
+    usage: "/replace [置き換えられるブロック id:meta] [置き換えるブロック id:meta]"
+    permission: "worldeditorex.replace"
+    permission-message: You don't have permission
+    default: op
+
+  copy:
+    description: "指定した座標間のブロックをコピーします。"
+    usage: "/copy"
+    permission: "worldeditorex.copy"
+    permission-message: You don't have permission
+    default: op
+
+  paste:
+    description: "指定した座標にペーストします。"
+    usage: "/paste"
+    permission: "worldeditorex.paste"
+    permission-message: You don't have permission
+    default: op
+    
+  rotate:
+    description: "コピーされたブロックを90度回転させます。"
+    usage: "/rotate"
+    permission: "worldeditorex.rotate"
+    permission-message: You don't have permission
+    default: op
+
+  export:
+    description: "コピーしたオブジェクトを出力します。"
+    usage: "/export [ファイル名]"
+    permission: "worldeditorex.export"
+    permission-message: You don't have permission
+    default: op
+
+  import:
+    description: "指定されたファイル名のオブジェクトをインポートします。"
+    usage: "/import [ファイル名]"
+    permission: "worldeditorex.import"
+    permission-message: You don't have permission
+    default: op
+
+  objects:
+    description: "インポート可能オブジェクトファイルを表示します。"
+    usage: "/objects"
+    permission: "worldeditorex.objects"
+    permission-message: You don't have permission
+    default: op
+
+  xyz:
+    description: "現在の座標を表示します。"
+    usage: "/xyz"
+    permission: "worldeditorex.xyz"
+    permission-message: You don't have permission
+    default: op
+
+  bid:
+    description: "手に持っているアイテムのIDを表示します。"
+    usage: "/bid"
+    permission: "worldeditorex.bid"
+    permission-message: You don't have permission
+    default: op
+    
+  pos1:
+    description: "選択範囲1を指定します。"
+    usage: "/pos1"
+    permission: "worldeditorex.pos1"
+    permission-message: You don't have permission
+    default: op
+    
+  pos2:
+    description: "選択範囲2を指定します。"
+    usage: "/pos2"
+    permission: "worldeditorex.pos2"
+    permission-message: You don't have permission
+    default: op
+    
+  wehelp:
+    description: "WorldEditoeEXのヘルプを表示します。"
+    usage: "/wehelp"
+    permission: "worldeditorex.wehelp"
+    permission-message: You don't have permission
+    default: op
+    
+permissions:
+  builderset:
+    default: true
