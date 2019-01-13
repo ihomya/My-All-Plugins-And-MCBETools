@@ -1,0 +1,49 @@
+﻿
+name: WorldEditor
+main: world.editor.worldeditor.Main
+version: 0.0.1
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+  pos1:
+    description: "始めの座標を設定します。"
+    permission: "worldeditor.pos1"
+    permission-message: You don't have <permission>
+    default: op
+  pos2:
+    description: "終点の座標を設定します。"
+    usage: "/pos2"
+    permission: "worldeditor.pos2"
+    permission-message: You don't have permission
+    default: op
+  we:
+    description: "WorldEditorの使い方を見ます。"
+    usage: "/we"
+    permission: "worldeditor.we"
+    permission-message: You don't have permission
+    default: op
+  xyz:
+    description: "現在の自分の座標を見ます。"
+    usage: "/xyz"
+    permission: "worldeditor.xyz"
+    permission-message: You don't have permission
+    default: op
+  set:
+    description: "指定した座標にブロックを設置します。"
+    usage: "/set [id] [メタデータ]"
+    permission: "worldeditor.set"
+    permission-message: You don't have permission
+    default: op
+  cut:
+    description: "指定した座標のブロックを削除します。"
+    usage: "/cut"
+    permission: "worldeditor.cut"
+    permission-message: You don't have permission
+    default: op
+  replace:
+    description: "指定した範囲の指定したブロックを置き換えます。"
+    usage: "/replace [置き換えられるid] [置き換えるid]"
+    permission: "worldeditor.replace"
+    permission-message: You don't have permission
+    default: op
