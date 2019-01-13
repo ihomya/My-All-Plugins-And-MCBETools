@@ -1,0 +1,13 @@
+﻿name: HelpOnMail
+main: help.on.mail.helponmail.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   alert:
+      description: "荒らし報告メールを送信"
+      usage: "/alert"
+      permission: alert
+      permission-message: You don't have <permission>
+      default: op
