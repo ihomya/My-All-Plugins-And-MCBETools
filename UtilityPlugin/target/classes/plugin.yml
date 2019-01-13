@@ -1,0 +1,5 @@
+name: UtilityPlugin
+main: com.Itsu.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
