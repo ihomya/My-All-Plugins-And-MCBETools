@@ -1,0 +1,19 @@
+name: EconomySystemJob
+main: itsu.mcbe.economysystemjob.core.MainAccessPoint
+version: 1.0.0
+api: ["1.0.0"]
+author: itsu020402
+load: POSTWORLD
+description: "EconomySystemJob - Nukkitサーバー用職業システム"
+
+commands: 
+  job: 
+    description: "職業コマンド"
+    usage: "/job"
+    permission: job
+    permission-message: You don't have <permisson>
+    default: true
+    
+permissions:
+  job:
+    default: true
