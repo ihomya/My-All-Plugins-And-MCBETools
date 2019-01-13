@@ -1,0 +1,17 @@
+name: LobiForMCBE
+main: itsu.mcbe.lobiformcbe.LobiForMCBE
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   lobi:
+      description: "Lobi for MCBE"
+      usage: "/lobi"
+      permission: lobi
+      permission-message: You don't have <permisson>
+      default: true
+
+permissions:
+    lobi:
+        default: true
