@@ -1,0 +1,32 @@
+﻿name: HighEndLoginSystem
+main: itsu.mcpe.highendloginsystem.core.HighEndLoginSystem
+version: 1.0.0
+api: ["1.0.6"]
+author: Itsu
+load: POSTWORLD
+description: "HighEndLoginSystem"
+
+commands: 
+  hls: 
+    description: "HignEndLoginSystemのメニューを表示"
+    usage: "/hls"
+    permission: hls
+    permission-message: You don't have <permisson>
+    default: true
+    
+  hban:
+    description: "HighEndLoginSystem - BAN"
+    usage: "/hban <name>"
+    
+  hpardon:
+    description: "HighEndLoginSystem - BAN解除"
+    usage: "/hpardon <name>"
+    
+  hsetgui:
+    description: "HighEndLoginSystem - アカウント管理"
+    usage: "/hsetgui"
+    
+
+permissions:
+    hls:
+        default: true

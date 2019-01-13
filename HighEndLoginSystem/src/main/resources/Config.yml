@@ -1,0 +1,101 @@
+#################
+#NewLoginSystem 設定#
+#################
+#メールの送信にはGMailの使用を推奨します。
+#他のアカウントでもできますが、プログラム自体がGMailに最適になっているためです。
+#詳細設定は下部にあります。
+
+#メールモードの使用
+sendMail: true
+
+#送信元メールアドレス
+Address: MAIL_ADDRESS
+
+#送信元アカウントパスワード
+Password: PASSWORD
+
+########################
+#初期参加時の表示の設定#
+########################
+
+#ウェルカムメッセージ（一つ目のフォーム）
+Form-1: XXXサーバーへようこそ！楽しんでいってください！（ここのメッセージはHighEndLoginSystem/Config.ymlのForm-1で変えられます。）
+
+#読み込む利用規約のファイル
+Eula: Eula.txt
+
+
+########################
+#メールの設定#
+########################
+
+#アカウント登録完了メール
+Account-Mail: Mail.html
+
+#パスワード再送信メール
+Password-Mail: ForgetPassword.html
+
+#別プラットフォームからのログイン時のメール
+AnotherLogin-Mail: ForgetPassword.html
+
+
+###########
+#メールの設定#
+###########
+#上級者用の設定です。自信のない方はGMailで送りましょう。
+#設定を間違えるとメールが送れなくなることがあります。
+#アカウントによっては送れないことがあります。
+#初期設定ではGMail用の設定になっています。
+
+#設定例
+
+#GMail-----------------------------
+#Smtp-Host:smtp.gmail.com
+#Smtp-Port:465
+#Smpt-SocketFactory-Port:465
+#Yahooメール----------------------
+#Smtp-Host:smtp.mail.yahoo.co.jp
+#Smtp-Port:465
+#Smpt-SocketFactory-Port:465
+#iCloudメール----------------------
+#Smtp-Host:smtp.mail.me.com
+#Smtp-Port:587
+#Smpt-SocketFactory-Port:587
+#------------------------------------
+
+#デバッグ(trueもしくはfalse)
+Mail-Debug: false
+
+#SMTPホスト
+Smtp-Host: smtp.gmail.com
+
+#SMTP_Auth(trueもしくはfalse)
+Smtp-Auth: true
+
+#SMTPポート
+Smtp-Port: 465
+
+#SMTP_SocketFactory_Port(noneで無効)
+Smtp-SocketFactory-Port: 465
+
+#SMTP接続タイムアウト(noneで無効)
+Smtp-ConnectionTimeout: 60000
+
+#SMTPタイムアウト(noneで無効)
+Smtp-Timeout: 60000
+
+#SMTPトランスポートプロトコル(noneで無効)
+Smtp-TransportProtocol: smtps
+
+#SMTP_Localhost(noneで無効)
+Smtp-Localhost: localhost
+
+#SMTP_SocketFactory_Class(noneで無効)
+Smtp-SocketFactory-Class: javax.net.ssl.SSLSocketFactory
+
+#SMTP_SocketFactory_Fallback(noneで無効)
+Smtp-SocketFactory-Fallback: false
+
+#Session_Transport
+Session-Transport: smtps
+

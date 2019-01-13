@@ -1,0 +1,300 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
+
+        <style type="text/css">
+            html, body{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            div#header-bar{
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 50px;
+                background-color: #3F51B5;
+            }
+
+            div#result{
+                border-bottom: solid 1px #E0E0E0;
+                border-right: solid 1px #E0E0E0;
+                border-left: solid 1px #E0E0E0;
+                border-top: solid 1px #E0E0E0;
+                width: 70%;
+                -webkit-box-shadow: 0px 0px 2px #000000;
+                -moz-box-shadow: 0px 0px 2px #000000;
+                box-shadow: 0px 0px 2px #000000;
+            }
+
+            div#body{
+                width: 100%;
+                margin: auto;
+                padding: 100px 0 0px 0;
+            }
+
+            div#footer{
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100px;
+                background-color: #3F51B5;
+            }
+
+            div#title1{
+                width: 60%;
+                float: left;
+            }
+
+            div#title2{
+                width: 40%;
+                float: right;
+                margin-left: auto;
+            }
+
+            h2#header-text{
+                color: #ffffff;
+                font-family: 'Roboto', sans-serif;
+                margin-left: 10px;
+                line-height: 10px;
+            }
+
+            h3{
+                border-bottom: solid 1px #757575;
+                border-right: solid 1px #757575;
+                border-left: solid 5px #3F51B5;
+                background-color: #9FA8DA;
+                font-family: 'Roboto', sans-serif;
+                font-size: 30px;
+                text-align: left;
+                -webkit-box-shadow: 0px 0px 2px #000000;
+                -moz-box-shadow: 0px 0px 2px #000000;
+                box-shadow: 0px 0px 2px #000000;
+            }
+
+            h4{
+                border-bottom: solid 1px #E0E0E0;
+                margin-left: 20px;
+                margin-right: 20px;
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            p{
+                font-family: "Mplus 1p";
+            }
+
+            p#result{
+                font-family: 'Roboto', sans-serif;
+                font-style: italic;
+                text-align: center;
+            }
+
+            p#footer{
+                color: #E0E0E0;
+                font-family: 'Roboto', sans-serif;
+                text-align: center;
+            }
+
+            div#menubutton{
+                position: absolute;
+                top: 11px;
+                width: 50px;
+                right: 11px;
+                height: 28px;
+                background: #303F9F;
+                float: right;
+                text-align: center;
+            }
+
+            div#top{
+                border-top: solid 2px #BDBDBD;
+                position: relative;
+                top: 7px;
+                width: 30px;
+                left: 10px;
+                height: 4px;
+            }
+
+            div#middle{
+                border-top: solid 2px #BDBDBD;
+                position: relative;
+                top: 7px;
+                width: 30px;
+                left: 10px;
+                height: 4px;
+            }
+
+            div#bottom{
+                border-top: solid 2px #BDBDBD;
+                position: relative;
+                top: 7px;
+                width: 30px;
+                left: 10px;
+                height: 4px;
+            }
+
+            input#menubutton{
+                position: absolute;
+                top: 0px;
+                width: 50px;
+                right: 9px;
+                height: 46px;
+                opacity: 0;
+            }
+
+            .accbox {
+                margin: 2em 0;
+                padding: 0;
+                max-width: 400px;
+            }
+
+            .accbox .accshow {
+                position: absolute;
+                top: 50px;
+                width: 40%;
+                padding: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: 0.8s;
+            }
+
+            .cssacc:checked + .accshow {
+                height: auto;
+                padding: 5px;
+                background: #eaeaea;
+                opacity: 1;
+            }
+
+            td.mokujiCon a{
+                background: #FFFFFF;
+                color: #424242;
+                padding: 10px;
+                border-bottom: 1px solid #BDBDBD;
+                text-align: left;
+                font-weight: lighter;
+                display: block;
+                width: 100%;
+                height: 100%;
+                text-decoration: none;
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+            }
+
+            td.mokujiCon:hover a{
+                background: #EEEEEE;
+                color: #424242;
+                padding: 10px;
+                border-bottom: 1px solid #BDBDBD;
+                text-align: left;
+                font-weight: lighter;
+                display: block;
+                width: 100%;
+                height: 100%;
+                text-decoration: none;
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+            }
+
+        </style>
+
+
+    </head>
+
+    <body>
+                <div id="header-bar">
+            <div id="title1">
+                <h2 id="header-text">サーバー</h2>
+            </div>
+
+            <div id="title2" class="accbox">
+                <div id="menubutton">
+                    <div id="top"></div>
+                    <div id="middle"></div>
+                    <div id="bottom"></div>
+                </div>
+
+                <input id="menubutton" type="checkbox" class="cssacc"/>
+                <div class="accshow" style="background: #9FA8DA;">
+                    <table width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="mokujiCon"><a href="#" target="contents">Official Site</a></td>
+                            </tr>
+                            <tr>
+                                <td class="mokujiCon"><a href="#" target="contents">Twitter</a></td>
+                            </tr>
+                            <tr>
+                                <td class="mokujiCon"><a href="#" target="contents">Lobi Group</a></td>
+                            </tr>
+                            <tr>
+                                <td class="mokujiCon"><a href="#" target="contents">Discord</a></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="body">
+            <center>
+                <img src="https://tstservermcpe.web.fc2.com/worlds_picture/bi2.png" width=60%>
+
+                <p>TSTServerより重要なお知らせです。必ず最後までお読みください。</p>
+
+                <h3>&nbsp;&nbsp;Contents</h3>
+                <p>#_TIME_#に前回ログインされた情報と異なるログインがありました。
+                アカウントが何者かによって乗っ取られた可能性がございますので必ずご確認ください。
+                もし乗っ取られた場合はサーバー主まで速やかにその旨をご報告ください。アカウント削除等の対策を致します。</p>
+
+                <p>これより下に今回のログイン情報を記載します。お心当たりがない場合は至急ご連絡ください。
+
+                <div id="result">
+                    <h4>User OS</h4>
+                    <p>ユーザーのログインに使用されたOSです。</p>
+                    <p id="result">#_OS_#</p>
+                </div>
+
+                <br>
+
+                <div id="result">
+                    <h4>User Model Name</h4>
+                    <p>ユーザーのログインに使用された機種名です。</p>
+                    <p id="result">#_MODEL_#</p>
+                </div>
+
+                <br>
+
+                <div id="result">
+                    <h4>Password</h4>
+                    <p id="result">#_PASSWORD_#</p>
+                </div>
+
+                <h3>&nbsp;&nbsp;Authentication Code</h3>
+                <p>現在登録されているメールアドレスはアカウントとして有効になっておりません。
+                下記の五ケタの認証コードをサーバー内で入力することで有効になります。
+                次回ログイン時に下記の認証コードを入力していただきますよう、よろしくお願いします。</p>
+
+                <div id="result">
+                    <h4>Authentication Code</h4>
+                    <p id="result">#_MAILPATH_#</p>
+                </div>
+
+                <br>
+
+                <div id="footer">
+                    <br>
+                    <p id="footer">(c) 2017-2018 HIghEndLoginSystem<br></p>
+                </div>
+            </center>
+        </div>
+    </body>
+</html>
