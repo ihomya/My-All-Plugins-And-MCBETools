@@ -1,0 +1,53 @@
+﻿name: ServerUtils
+main: server.utils.serverutils.Main
+version: 1.5.3
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   server:
+      description: "サーバー情報の表示(Popup)"
+      usage: "/server"
+      permission: serverutils.server
+      permission-message: You don't have permisson
+      default: true
+
+   setspawn:
+      description: "スポーン地点の設定"
+      usage: "/setspawn"
+      permission: serverutils.setspawn
+      permission-message: You don't have permisson
+      default: op
+
+   spawn:
+      description: "スポーン地点へ移動"
+      usage: "/spawn"
+      permission: serverutils.spawn
+      permission-message: You don't have permisson
+      default: true
+
+   homo:
+      description: "何がおきるかはお楽しみ"
+      usage: "/homo"
+      permission: homo
+      permission-message: You don't have permisson
+      default: true
+
+   java:
+      description: "Java メモリ使用量取得"
+      usage: "/java"
+      permission: java
+      permission-message: You don't have permisson
+      default: true
+
+permissions:
+   server:
+      default: true
+
+   spawn:
+      default: true
+
+   homo:
+      default: true
+
+
