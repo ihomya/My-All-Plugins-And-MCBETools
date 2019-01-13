@@ -1,0 +1,5 @@
+name: HardCore
+main: hard.core.hardcore.Main
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
