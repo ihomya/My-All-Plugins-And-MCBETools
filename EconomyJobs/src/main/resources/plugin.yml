@@ -1,0 +1,18 @@
+name: EconomyJobs
+main: com.Itsu.EconomyJobs
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
+
+commands:
+   job:
+      description: "EconomyManager"
+      usage: "/job"
+      permission: job
+      permission-message: You don't have <permisson>
+      default: true
+      default: op
+
+permissions:
+    job:
+        default: true
