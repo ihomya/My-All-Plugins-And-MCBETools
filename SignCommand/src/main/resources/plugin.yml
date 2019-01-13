@@ -1,0 +1,5 @@
+name: SignCommand
+main: com.Itsu.SignCommand
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
