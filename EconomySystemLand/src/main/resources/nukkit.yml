@@ -1,0 +1,19 @@
+name: EconomySystemLand
+main: itsu.mcbe.economysystemland.core.MainAccessPoint
+version: 1.0.0
+api: ["1.0.0"]
+author: itsu020402
+load: POSTWORLD
+description: "EconomySystemLand - Nukkitサーバー用土地購入システム"
+
+commands: 
+  land: 
+    description: "EconomySystemLand（土地システム）のコマンド"
+    usage: "/land <pos1 | pos2>"
+    permission: land
+    permission-message: You don't have <permisson>
+    default: true
+    
+permissions:
+  land:
+    default: true
