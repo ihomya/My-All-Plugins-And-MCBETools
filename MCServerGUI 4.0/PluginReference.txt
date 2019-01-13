@@ -1,0 +1,146 @@
+
+MCServerGUI プラグインAPI リファレンス
+
+
+
+1. プラグインの作り方
+MCServerGUIPluginクラスを継承させたクラスが必要です。また、このクラスがメインクラスとなります。
+APIにはそれぞれの動作にあったメソッドが用意されており、そのメソッド内に処理を記述する形となります。
+タブもいじれるのでJavaSwingの知識もあると更にプラグインの幅が広がります。
+
+
+
+2.各メソッドの説明
+(1)onLoad()
+プラグインが読み込まれたときに呼ばれます。
+GUIの編集も基本的にはこのタイミングで行うようにしてください。
+
+(2)onStartServer()
+サーバーがスタートしたときに呼ばれます。
+
+(3)onCloseServer()
+サーバーが終了したときに呼ばれます。
+
+(4)onUnLoad()
+プラグインが無効になったときに呼ばれます。
+
+
+
+3.操作
+(1)MCServerGUIPlugin#sendConsoleInfo(String message) :void
+サブコンソールにメッセージを追加します。(INFO)
+
+(2)MCServerGUIPlugin#sendConsoleAlert(String message) :void
+サブコンソールにメッセージを追加します。(ALERT)
+
+(3)MCServerGUIPlugin#sendConsoleCritical(String message) :void
+サブコンソールにメッセージを追加します。(CRITICAL)
+
+(4)MessageDialog#freeDialog(String message) <staticアクセス> :void
+ダイアログを指定したメッセージで表示します。
+
+(5)Main#getTabPane() <staticアクセス> :JTabbedPane
+タブコンポーネントを取得します。addTab(String tabName, JPanel panel)でタブを追加できます。
+
+(6)Utils#getFont() <staticアクセス> :Font
+設定タブの「設定」というタイトルなどで使われているフォント(超極細ゴシック 36pt)を取得します。
+
+(7)Utils#writeFile(File file, String text) <staticアクセス> :void
+fileにtextの文字を書き込みます。
+
+(8)Utils#writeFile(File file, InputStream stream)  <staticアクセス> :void
+fileにInputStreamの内容を書き込みます。
+
+(9)MatiPanelクラス
+他のタブで使用されているような壁紙付きのパネルです。
+使い方はJPanelと変わりません。
+
+
+
+4.MCServerGUI.txtの書き方
+プラグインを定義するために書くいわゆるマニフェストファイルです。
+フォルダ直下に配置してください。
+
+1行目:名前
+2行目:Mainクラスの場所(com.Itsu.Main)のような記述方法
+3行目:バージョン(文字列でも可能です。)
+
+
+
+5.MCServerGUI.txt(例)
+TestPlugin
+com.Itsu.core.Main
+1.0.0 alpha
+
+
+
+6.フォルダ構成(例)
+TestPlugin.jar
+    ├ MCServerGUI.txt
+    ├ com
+    │  └ Itsu
+    │       └ core
+    │           ├ Main.class
+    │           ├ Checker.class
+    │           └ Foo.class
+    ├ META-INF
+    │  └ MANIFEST.MF
+    ├ .classpath
+    └ .project
+
+
+
+7.サンプルソース <Main.java>--------------------------------------------------------
+
+/*
+このコードをそのまま使うと「テストタブ」というタブが新しく配置され、なおかつサーバー起動時に「サーバー起動！」、サーバー終了時に
+「サーバー終了！」というダイアログが出るようになります。
+また、起動時にサブコンソールに「起動しました」とも出ます。
+*/
+
+package com.Itsu.core;
+
+import java.awt.Font;
+
+import javax.swing.JLabel;
+
+import mcserver.gui.core.MatiPanel;
+import mcserver.gui.core.MessageDialog;
+import mcserver.gui.mcservergui.Main;
+import mcserver.gui.plugin.MCServerGUIPlugin;
+import mcserver.gui.plugin.Utils;
+
+public class Main extends MCServerGUIPlugin{
+
+	public void onLoad(){
+
+		this.sendConsoleInfo("起動しました");
+
+		MatiPanel p = new MatiPanel();
+		p.setBackground(Color.WHITE);
+		p.setBounds(0,0,1000,550);
+		p.setLayout(null);
+
+		JLabel label = new JLabel("HELLO, WORLD");
+		label.setFont(Utils.getFont());
+		label.setBounds(30, 30, 500, 40);
+		p.add(label);
+
+		Main.getTabPane().addTab("テストタブ", p);
+
+	}
+
+	public void onStartServer(){
+		MessageDialog.freeDialog("サーバー起動！");
+	}
+
+	public void onCloseServer(){
+		MessageDialog.freeDialog("サーバー終了！");
+	}
+
+}
+
+------------------------------------------------------------------------------------
+
+
+
