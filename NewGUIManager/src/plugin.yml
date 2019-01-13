@@ -1,0 +1,5 @@
+name: NewGUIManager
+main: com.Itsu.NewGUIManager
+version: 1.0.0
+author: Itsu
+api: ["1.0.0"]
