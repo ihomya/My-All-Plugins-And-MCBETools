@@ -28,13 +28,15 @@ public class Main extends PluginBase implements Listener {
             double r = time;//円の半径
             double y = -2 *  Math.pow(time - 0.5, 2) + 2.5;//y座標　y=ax^2+bの形にしてある。
 
+            //円の半径の-r<d<rの範囲（dはプレイヤーのx座標と円上のx座標との差）の数値を出して、円を描く
+            //z座標は円の方程式の基本形x^2+y^2=r^2（Minecraft上ではこの式のyはzとなる）を変形・整理してz=√(r^2-d^2)で求めた値をz座標としている。
             for (double d = -time; d < time; d = d + 0.02) {
                 //円のz=√y^2の正のほう
-                particle.setComponents(startX + d, event.getPlayer().getY() + y, startZ + Math.sqrt(r * r - Math.pow(d, 2)));
+                particle.setComponents(startX + d, event.getPlayer().getY() + y, startZ + Math.sqrt(r * r - d * d));
                 event.getPlayer().getLevel().addParticle(particle);
 
                 //円のz=√y^2の負のほう
-                particle.setComponents(startX + d,event.getPlayer().getY() + y, startZ - Math.sqrt(r * r - Math.pow(d, 2)));
+                particle.setComponents(startX + d,event.getPlayer().getY() + y, startZ - Math.sqrt(r * r - d * d));
                 event.getPlayer().getLevel().addParticle(particle);
             }
 
