@@ -1,0 +1,6 @@
+name: particle
+main: itsu.mcbe.particle.Main
+version: 1.0.0
+api: 1.0.0
+author: itsu
+description: particle plugin
